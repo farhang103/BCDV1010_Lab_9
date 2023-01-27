@@ -256,10 +256,11 @@ contract ERC20 is IERC20 {
     ) internal virtual {
         /* <------ Your code goes here ------->
          */
-        require(balanceOf[from] >= amount, "Insufficient balance.");
-        require(to != address(0), "Invalid address.");
-        balanceOf[from] -= amount;
-        balanceOf[to] += amount;
+        require(from != address(0), "Transfer from zero address ");
+        require(to != address(0), "Transfer to  zero address");
+        require(from.balance >= amount, "Insufficient balance.");
+        _balances[msg.sender] -= amount;
+        _balances[to] += amount;
         emit Transfer(from, to, amount);
     }
 
